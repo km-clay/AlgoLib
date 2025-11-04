@@ -14,4 +14,4 @@ The implementation of the point iterator algorithms in particular is quite optim
 
 I highly recommend it for cutting down on boilerplate in mods that are heavy on analyzing tiles. It was a big help when writing both [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3595057258&searchtext=autotorch]AutoTorch+[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3598787459]Smart Cursor Tweaks[/url]
 
-GitHub:
+GitHub: https://github.com/km-clay/AlgoLib

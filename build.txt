@@ -1,0 +1,3 @@
+displayName = AlgoLib
+author = pagedMov
+version = 0.1

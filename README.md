@@ -1,4 +1,4 @@
-# LibAlgo
+# AlgoLib
 
 I ended up using a lot of the same algorithms across all of my mods and thought that re-implementing them every time was annoying, so I made this library. Contains useful algorithms and helpers for gathering information in 2D space.
 

@@ -75,9 +75,9 @@ namespace AlgoLib.Geometry {
 		/// <param name="worldPos">Tile coordinate (will be treated as Vector2 with X/Y as tile positions)</param>
 		/// <param name="centered">If true, returns the center of the tile (offset +8 pixels). If false, returns top-left corner.</param>
 		/// <returns>World position in pixels</returns>
-		public static Vector2 TileToWorld(Vector2 worldPos, bool centered = true) {
+		public static Vector2 TileToWorld(Point tilePos, bool centered = true) {
 			float offset = centered ? 8f : 0f;
-			return new Vector2(worldPos.X * 16f + offset, worldPos.Y * 16f + offset);
+			return new Vector2(tilePos.X * 16f + offset, tilePos.Y * 16f + offset);
 		}
 		/// <summary>
 		/// Converts tile grid coordinates to world pixel coordinates.
@@ -88,7 +88,7 @@ namespace AlgoLib.Geometry {
 		/// <param name="centered">If true, returns the center of the tile (offset +8 pixels). If false, returns top-left corner.</param>
 		/// <returns>World position in pixels</returns>
 		public static Vector2 TileToWorld(int tileX, int tileY, bool centered = true) {
-			return TileToWorld(new Vector2(tileX, tileY), centered);
+			return TileToWorld(new Point(tileX, tileY), centered);
 		}
 
 		/// <summary>

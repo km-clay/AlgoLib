@@ -3,32 +3,29 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using AlgoLib.Geometry;
+using System;
 
 namespace AlgoLib.Algo.Graph {
 	/// <summary>
-	/// An iterator that performs a breadth-first search (BFS) from a starting point within
-	/// specified bounds and up to a maximum radius.
-	/// Use Next() to get the next point, and HasNext() to check if there
-	/// are more points.
-	/// </summary>
+  /// An iterator that performs a breadth-first search (BFS) from a starting point.
+  /// Expands level-by-level outward from the start. The caller is responsible for
+  /// stopping iteration when desired (e.g., based on distance, bounds, or other criteria).
+  /// Use HasNext() to check if there are more points, and Next() to get the next point.
+  /// </summary>
 	public class BFSIterator : GridIterator {
-		private PriorityQueue<Point, float> toVisit;
+		private Queue<Point> toVisit;
 		private HashSet<Point> visited;
 		private Point center;
-		private Rectangle bounds;
-		private int maxRadius;
 		private bool square;
+		private Func<Point,bool> validator;
 
-		public BFSIterator(Point start, Rectangle bounds, int maxRadius, bool square = false) {
+		public BFSIterator(Point start, Func<Point,bool> validator = null, bool square = false) {
 			this.center = start;
-			this.bounds = bounds;
-			this.maxRadius = maxRadius;
 			this.square = square;
-			toVisit = new PriorityQueue<Point, float>();
+			this.validator = validator;
+			toVisit = new Queue<Point>();
 			visited = new HashSet<Point>();
-			if (bounds.Contains(start)) {
-				toVisit.Enqueue(start, 0);
-			}
+			toVisit.Enqueue(start);
 		}
 
 		/// <summary>
@@ -39,7 +36,7 @@ namespace AlgoLib.Algo.Graph {
 		}
 
 		private bool NeighborIsValid(Point neighbor) {
-			return !visited.Contains(neighbor) && bounds.Contains(neighbor);
+			return !visited.Contains(neighbor) && (validator == null || validator(neighbor));
 		}
 
 		/// <summary>
@@ -50,8 +47,7 @@ namespace AlgoLib.Algo.Graph {
 
 			foreach(Point neighbor in GridUtils.GetNeighbors(current, square)) {
 				if (NeighborIsValid(neighbor)) {
-					float nDist = Vector2.Distance(neighbor.ToVector2(), center.ToVector2());
-					toVisit.Enqueue(neighbor, nDist);
+					toVisit.Enqueue(neighbor);
 					visited.Add(neighbor);
 				}
 			}
